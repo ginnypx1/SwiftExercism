@@ -36,20 +36,17 @@ struct Grains {
             throw GrainsError.inputTooHigh("Input[\(square)] invalid. Input should be between 1 and 64 (inclusive)")
         }
         
-        let checkerboardRange: [Int] = Array(1...square)
-        var checkerboardRangeWithGrains: [Double] = []
+        var grainsLastSquare: Double = 1
         
-        var grainsOnPreviousSquare: Double = 1
-        
-        for eachSquare in checkerboardRange {
-            if eachSquare == 1 {
-                checkerboardRangeWithGrains.append(1)
+        for i in 1...square {
+            if i == 1 {
+                grainsLastSquare = 1
             } else {
-                let grains = grainsOnPreviousSquare*2
-                checkerboardRangeWithGrains.append(grains)
-                grainsOnPreviousSquare = grains
+                let grainsOnSquare = grainsLastSquare*2
+                grainsLastSquare = grainsOnSquare
             }
         }
-        return checkerboardRangeWithGrains[Int(square-1)]
+
+        return grainsLastSquare
     }
 }
