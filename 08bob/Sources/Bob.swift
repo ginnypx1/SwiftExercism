@@ -6,16 +6,13 @@ import Foundation
 struct Bob {
     
     static func hey(_ input: String) -> String {
-        
-        // remove clutter (space, . ,)
-        var formattedString = input.replacingOccurrences(of: ".", with: "")
+        // remove spaces
+        var formattedString = input.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        formattedString = formattedString.replacingOccurrences(of: ".", with: "")
         formattedString = formattedString.replacingOccurrences(of: ",", with: "")
-        formattedString = formattedString.replacingOccurrences(of: " ", with: "")
         
-        // check for empty string
         if formattedString == "" {
             return "Fine. Be that way!"
-        // check for question
         } else if "?" == formattedString.characters.last! {
             formattedString = formattedString.replacingOccurrences(of: "?", with: "")
             if Int(formattedString) != nil {
@@ -25,14 +22,16 @@ struct Bob {
             } else {
                 return "Sure."
             }
-        // check for yelling
+            
+            
         } else if formattedString == formattedString.uppercased() {
             if Int(formattedString) != nil {
                 return "Whatever."
             } else {
                 return "Whoa, chill out!"
             }
-        // return default
+            
+            
         } else {
             return "Whatever."
         }
