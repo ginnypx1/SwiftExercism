@@ -5,13 +5,18 @@ import Foundation
 
 class Gigasecond {
     
+    let gigasecond: Double = 1000000000.0
+    
+    let dateFormatter = DateFormatter()
+    let timeZone: TimeZone = TimeZone(secondsFromGMT: 0)!
+    let dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
     var description: String = ""
     
     init?(from givenDate: String) {
-        // create date formatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        // format date formatter
+        dateFormatter.timeZone = timeZone
+        dateFormatter.dateFormat = dateFormat
         
         // convert datestring to date
         guard let date = dateFormatter.date(from: givenDate) else {
@@ -19,7 +24,6 @@ class Gigasecond {
         }
         
         // add gigasecond
-        let gigasecond: Double = 1000000000.0
         let timeGigasecondLater = date.addingTimeInterval(gigasecond)
         
         // set description property to formatted datestring
