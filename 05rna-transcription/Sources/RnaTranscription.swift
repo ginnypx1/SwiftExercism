@@ -3,43 +3,46 @@
 import Foundation
 
 
-enum DNA: String {
-    case G
-    case C
-    case T
-    case A
-}
-
-enum RNA: String {
-    case C
-    case G
-    case A
-    case U
-}
-
 class Nucleotide {
     
-    var complementOfDNA: String
+    enum DNA: String {
+        case G
+        case C
+        case T
+        case A
+    }
     
-    init(_ dnaString: String) {
-        let characterArray = dnaString.characters.map { String($0) }
-        // can map over again without making a new array
-        var rnaArray: [String] = []
-        for character in characterArray {
-            switch character {
+    enum RNA: String {
+        case C
+        case G
+        case A
+        case U
+    }
+    
+    let DNAString: String
+    
+    var complementOfDNA: String {
+        let characterArray = DNAString.characters.map { String($0) }
+        
+        let rnaArray = characterArray.map({ (element: String) -> String in
+            switch element {
             case DNA.G.rawValue:
-                rnaArray.append(RNA.C.rawValue)
+                return RNA.C.rawValue
             case DNA.C.rawValue:
-                rnaArray.append(RNA.G.rawValue)
+                return RNA.G.rawValue
             case DNA.T.rawValue:
-                rnaArray.append(RNA.A.rawValue)
+                return RNA.A.rawValue
             case DNA.A.rawValue:
-                rnaArray.append(RNA.U.rawValue)
+                return RNA.U.rawValue
             default:
-                rnaArray.append("")
+                return ""
             }
-        }
-        let rnaString = rnaArray.joined(separator: "")
-        self.complementOfDNA = rnaString
+        })
+        
+        return rnaArray.joined(separator: "")
+    }
+    
+    init(_ DNAString: String) {
+        self.DNAString = DNAString
     }
 }
